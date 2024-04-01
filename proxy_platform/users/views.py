@@ -52,7 +52,7 @@ class Login(View):
             else:
                 return JsonResponse({"error": "Invalid credentials."}, status=401)
         except User.DoesNotExist:
-            return JsonResponse({"error": "User does not exist."}, status=404)
+            return JsonResponse({"error": "Invalid credentials."}, status=401)
         except Exception as e:
             return JsonResponse({"error": str(e)}, status=500)
 

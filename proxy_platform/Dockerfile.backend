@@ -1,0 +1,19 @@
+FROM python:3.10.12
+
+WORKDIR /app
+
+COPY requirements.txt /app/
+
+RUN pip install --upgrade pip
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy the project code into the container
+COPY . /app/
+
+RUN chmod +x /app/script.sh
+
+# Expose the port on which your Django app runs
+EXPOSE 8000
+
+# Command to run the Django development server
+CMD ["/app/script.sh"]

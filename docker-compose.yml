@@ -1,0 +1,27 @@
+version: '3'
+
+services:
+  backend:
+    build:
+      context: ./proxy_platform
+      dockerfile: Dockerfile.backend
+    ports:
+      - "8000:8000"
+    depends_on:
+      - redis
+    volumes:
+      - ./backend-app/db.sqlite3:/backend-app/db.sqlite3
+    command: ["/app/script.sh"]
+
+  frontend:
+    build:
+      context: ./my-proxy-app
+      dockerfile: Dockerfile.frontend
+    ports:
+      - "3000:3000"
+
+  redis:
+    image: redis
+    ports:
+      - "6379:6379"
+

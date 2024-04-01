@@ -10,7 +10,7 @@ class Proxy(models.Model):
         default="Down",
     )
     last_checked = models.DateTimeField(null=True)
-    owner = models.OneToOneField(User, on_delete=models.CASCADE, null=True, blank=True)
+    owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name='proxies', null=True,blank=True)
     
     def __str__(self):
         return self.ip+":"+self.port

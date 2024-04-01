@@ -12,7 +12,8 @@ from users.jwt_auth import jwt_required
 class manageProxy(View):
     @jwt_required
     def get(self, request):
-        proxies = Proxy.objects.all()
+        user_id = self.jwt_payload["user_id"]
+        proxies = Proxy.objects.filter(owner_id=user_id) | Proxy.objects.filter(owner__isnull=True)
         serialized_proxies = [{'proxy_id': proxy.id,'ip': proxy.ip, 'port': proxy.port,'last_checked': proxy.last_checked, 'status': proxy.status, "owner": proxy.owner.id if proxy.owner else proxy.owner} for proxy in proxies]
         return JsonResponse({"proxies": serialized_proxies})
 

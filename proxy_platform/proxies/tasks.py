@@ -28,5 +28,7 @@ def check_proxy():
                 proxy.save()
         except Exception as e:
             print(f"Error: {e}")
-            proxy.status 
+            proxy.status = "DOWN"
+            proxy.last_checked = datetime.now()
+            proxy.save() 
             

@@ -16,7 +16,6 @@ import AdbIcon from "@mui/icons-material/Adb";
 import PersonAddAltIcon from "@mui/icons-material/PersonAddAlt";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import { useNavigate } from "react-router-dom/dist";
-import { Grid } from "@mui/material";
 
 const pages = [];
 const settings = ["Logout"];
@@ -41,12 +40,11 @@ function ResponsiveAppBar() {
     setAnchorElUser(null);
   };
   const handleOnSettingClick = () => {
-    document.cookie = "refreshToken=; expires=Thu, 01 Jan 1970 00:00:01 GMT;";
+    localStorage.removeItem("jwtToken");
     handleCloseUserMenu();
-    window.location.reload(false);
+    navigate("/login");
   };
-  const cookie = document.cookie.split("=");
-  const isAuthenticated = cookie.length >= 2 && cookie[1];
+  const isAuthenticated = localStorage.getItem('jwtToken');
   return (
     <div>
     <CssBaseline/>
